@@ -3,23 +3,48 @@
 @section('content')
 <h1>Edit User</h1>
 
-<h3>Currently editing user: {{$user->name}}<h3>
-<h4>Assign a new role:</h4>
+<h3>Currently editing user: {{$user->name}}</h3>
+<div class="row">
 
-<div class="form-group">
-  <form method="PATCH" action="admin.users.update">
-  <label for="sel1">Select new role:</label>
-  <select class="form-control" id="sel1">
-  @foreach($roles as $role)
-    <option>{{$role->name}}</option>
-  @endforeach
-  </select>
-  {{csrf_field()}}
+<div class="col-sm-3">
+  <img class="img-responsive img-rounded" src="{{$user->photo ? $user->photo->path : 'https://via.placeholder.com/400.png'}}"/>
 </div>
-<button type="button" method="get" class="btn btn-primary">Submit</button>
+<div class="col-sm-9">
 
-</form>
-
+  {!! Form::model($user, ['method'=>'PATCH', 'action'=>['AdminUsersController@update', $user->id], 'files' => true]) !!}
+  <div class="form-group">
+    {!! Form::label('name', 'Name') !!}
+    {!! Form::text('name', null, ['class'=>'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('email', 'Email') !!}
+    {!! Form::email('email', null, ['class'=>'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('password', 'Password') !!}
+    {!! Form::password('password', ['class'=>'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('role_id', 'Role') !!}
+    {!! Form::select('role_id', $roles, null, ['class'=>'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('is_active', 'Status') !!}
+    {!! Form::select('is_active', array(1=>'Active', 0=>'Inactive'), null, ['class'=>'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::label('photo_id', 'Avatar') !!}
+    {!! Form::file('photo_id', null, ['class'=>'form-control']) !!}
+  </div>
+  <div class="form-group">
+    {!! Form::submit('Create User', ['class'=>'btn btn-primary']) !!}
+  </div>
+  {!! Form::close() !!}
+</div>
+</div>
+<div class="row">
+@include('includes.form_error')
+</div>
 @endsection
 
 @yield('footer')
