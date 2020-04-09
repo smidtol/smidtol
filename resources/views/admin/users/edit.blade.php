@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
+ 
 <h1>Edit User</h1>
 
 <h3>Currently editing user: {{$user->name}}</h3>
@@ -37,7 +38,13 @@
     {!! Form::file('photo_id', null, ['class'=>'form-control']) !!}
   </div>
   <div class="form-group">
-    {!! Form::submit('Create User', ['class'=>'btn btn-primary']) !!}
+    {!! Form::submit('Update User', ['class'=>'btn btn-primary col-sm-3 pull-left']) !!}
+  </div>
+  {!! Form::close() !!}
+
+  {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy', $user->id],]) !!}
+  <div class="form-group">
+  {!! Form::submit('Delete User', ['class'=>'btn btn-danger col-sm-3 pull-right']) !!}
   </div>
   {!! Form::close() !!}
 </div>
