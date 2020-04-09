@@ -21,7 +21,7 @@
         @foreach($posts as $post)
         <tr>
             <td>{{$post->id}}</td>
-            <td>{{$post->category ? $post->category->name : 'N/A'}}</td>
+            <td>{{$post->test->name ?? "Uncategorised"}}</td>
             <td><img height="50" src="{{$post ? $post->photo->path : 'N/A'}}" /></td>
             <td>{{$post->title}}</td>
             <td>{{$post->body}}</td>
